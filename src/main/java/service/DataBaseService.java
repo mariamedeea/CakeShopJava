@@ -481,6 +481,7 @@ public class DataBaseService {
             }
         }
     }
+
     public static void removeEmployee(Connection con) {
         auditService.logAction("removeEmployee");
 

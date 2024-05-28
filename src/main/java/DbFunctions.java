@@ -19,6 +19,7 @@ public class DbFunctions {
                 System.out.println("Connection Failed");
             }
         } catch (Exception e){
+
             System.out.println(e.getMessage());
         }
 

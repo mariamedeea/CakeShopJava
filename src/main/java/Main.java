@@ -20,6 +20,7 @@ public class Main {
 //        myCakeShop.updateLocation(connection);
         myCakeShop.readLocations(connection);
 
+
 //
 ////        myCakeShop.addProduct(connection);
 ////        myCakeShop.readProducts(connection);
