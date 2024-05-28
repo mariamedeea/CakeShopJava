@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="yourname">
+        <createTable tableName="order_product">
+            <column name="order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="order_id, product_id" constraintName="pk_order_product" tableName="order_product"/>
+        <addForeignKeyConstraint baseTableName="order_product"
+                                 baseColumnNames="order_id"
+                                 constraintName="fk_order"
+                                 referencedTableName="orders"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="order_product"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk_product"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <include file="db/changelog/2024/05/26-01-changelog.xml"/>
+    <include file="db/changelog/2024/05/26-01-changelog.sql"/>
+    <include file="db/changelog/2024/05/26-01-changelog.sql"/>
+
+</databaseChangeLog>

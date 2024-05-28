@@ -1,0 +1,119 @@
+-- liquibase formatted sql
+
+-- changeset peric:1716739420923-1
+CREATE TABLE Cake
+(
+    ID     BIGINT NOT NULL,
+    flavor VARCHAR(255) NULL,
+    CONSTRAINT pk_cake PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-2
+CREATE TABLE Client
+(
+    ID          BIGINT AUTO_INCREMENT NOT NULL,
+    firstName   VARCHAR(255) NULL,
+    lastName    VARCHAR(255) NULL,
+    phoneNumber VARCHAR(255) NULL,
+    CONSTRAINT pk_client PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-3
+CREATE TABLE Cookie
+(
+    ID       BIGINT NOT NULL,
+    packSize INT NULL,
+    shape    VARCHAR(255) NULL,
+    CONSTRAINT pk_cookie PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-4
+CREATE TABLE Employee
+(
+    ID          BIGINT AUTO_INCREMENT NOT NULL,
+    firstName   VARCHAR(255) NULL,
+    lastName    VARCHAR(255) NULL,
+    salary DOUBLE NULL,
+    LOCATION_ID BIGINT NULL,
+    CONSTRAINT pk_employee PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-5
+CREATE TABLE Location
+(
+    ID   BIGINT AUTO_INCREMENT NOT NULL,
+    city VARCHAR(255) NULL,
+    CONSTRAINT pk_location PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-6
+CREATE TABLE `Order`
+(
+    ID          BIGINT AUTO_INCREMENT NOT NULL,
+    CLIENT_ID   BIGINT NULL,
+    totalPrice  INT NULL,
+    LOCATION_ID BIGINT NULL,
+    CONSTRAINT pk_order PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-7
+CREATE TABLE Pastry
+(
+    ID          BIGINT NOT NULL,
+    size        VARCHAR(255) NULL,
+    isFilled    BIT(1) NULL,
+    fillingType VARCHAR(255) NULL,
+    CONSTRAINT pk_pastry PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-8
+CREATE TABLE Product
+(
+    ID    BIGINT AUTO_INCREMENT NOT NULL,
+    price INT NULL,
+    name  VARCHAR(255) NULL,
+    CONSTRAINT pk_product PRIMARY KEY (ID)
+);
+
+-- changeset peric:1716739420923-9
+CREATE TABLE order_product
+(
+    id         BIGINT AUTO_INCREMENT NOT NULL,
+    order_id   BIGINT NULL,
+    product_id BIGINT NULL,
+    quantity   INT NOT NULL,
+    CONSTRAINT pk_order_product PRIMARY KEY (id)
+);
+
+-- changeset peric:1716739420923-10
+ALTER TABLE Cake
+    ADD CONSTRAINT FK_CAKE_ON_ID FOREIGN KEY (ID) REFERENCES Product (ID);
+
+-- changeset peric:1716739420923-11
+ALTER TABLE Cookie
+    ADD CONSTRAINT FK_COOKIE_ON_ID FOREIGN KEY (ID) REFERENCES Product (ID);
+
+-- changeset peric:1716739420923-12
+ALTER TABLE Employee
+    ADD CONSTRAINT FK_EMPLOYEE_ON_LOCATION FOREIGN KEY (LOCATION_ID) REFERENCES Location (ID);
+
+-- changeset peric:1716739420923-13
+ALTER TABLE `Order`
+    ADD CONSTRAINT FK_ORDER_ON_CLIENT FOREIGN KEY (CLIENT_ID) REFERENCES Client (ID);
+
+-- changeset peric:1716739420923-14
+ALTER TABLE `Order`
+    ADD CONSTRAINT FK_ORDER_ON_LOCATION FOREIGN KEY (LOCATION_ID) REFERENCES Location (ID);
+
+-- changeset peric:1716739420923-15
+ALTER TABLE order_product
+    ADD CONSTRAINT FK_ORDER_PRODUCT_ON_ORDER FOREIGN KEY (order_id) REFERENCES `Order` (ID);
+
+-- changeset peric:1716739420923-16
+ALTER TABLE order_product
+    ADD CONSTRAINT FK_ORDER_PRODUCT_ON_PRODUCT FOREIGN KEY (product_id) REFERENCES Product (ID);
+
+-- changeset peric:1716739420923-17
+ALTER TABLE Pastry
+    ADD CONSTRAINT FK_PASTRY_ON_ID FOREIGN KEY (ID) REFERENCES Product (ID);
+
